@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ConnectSphere Pro</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ambient background blobs -->
+  <div class="bg-blob blob-one"></div>
+  <div class="bg-blob blob-two"></div>
+  <div class="bg-blob blob-three"></div>
+
+  <!-- ═══════════════════════════ SIDEBAR ══════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-text">ConnectSphere<em>Pro</em></span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-section="dashboard">
+        <span class="nav-icon">▦</span>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-section="new-contact">
+        <span class="nav-icon">⊕</span>
+        <span>New Contact</span>
+      </a>
+      <a href="#" class="nav-item" data-section="directory">
+        <span class="nav-icon">⊞</span>
+        <span>Contact Directory</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="sidebar-version">v2.4.1</span>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════ MAIN AREA ════════════════════════════════ -->
+  <main class="main-shell">
+
+    <!-- TOP HEADER -->
+    <header class="top-bar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+        <h1 class="topbar-title">Dashboard</h1>
+      </div>
+      <div class="topbar-right">
+        <div class="live-clock" id="liveClock">
+          <span id="clockDate"></span>
+          <span id="clockTime" class="clock-time"></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT WRAPPER -->
+    <div class="content-area">
+
+      <!-- ── DASHBOARD SECTION ─────────────────────────────────────────── -->
+      <section class="page-section active" id="section-dashboard">
+
+        <div class="section-heading">
+          <h2>Overview</h2>
+          <p class="section-sub">Real-time snapshot of your contact database.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card" id="stat-total">
+            <div class="stat-icon si-cyan">⬡</div>
+            <div class="stat-body">
+              <span class="stat-value shimmer-line" id="sv-total">—</span>
+              <span class="stat-label">Total Records</span>
+            </div>
+            <div class="stat-glow glow-cyan"></div>
+          </div>
+          <div class="stat-card" id="stat-verified">
+            <div class="stat-icon si-violet">✦</div>
+            <div class="stat-body">
+              <span class="stat-value shimmer-line" id="sv-verified">—</span>
+              <span class="stat-label">Verified Emails</span>
+            </div>
+            <div class="stat-glow glow-violet"></div>
+          </div>
+          <div class="stat-card" id="stat-today">
+            <div class="stat-icon si-teal">◆</div>
+            <div class="stat-body">
+              <span class="stat-value shimmer-line" id="sv-today">—</span>
+              <span class="stat-label">Today's Entries</span>
+            </div>
+            <div class="stat-glow glow-teal"></div>
+          </div>
+          <div class="stat-card" id="stat-updated">
+            <div class="stat-icon si-rose">◉</div>
+            <div class="stat-body">
+              <span class="stat-value shimmer-line" id="sv-updated" style="font-size:1rem">—</span>
+              <span class="stat-label">Last Updated</span>
+            </div>
+            <div class="stat-glow glow-rose"></div>
+          </div>
+        </div>
+
+        <!-- quick action -->
+        <div class="quick-action-row">
+          <button class="btn-primary" id="quickAddBtn">⊕ &nbsp;Add New Contact</button>
+          <button class="btn-ghost" id="quickDirBtn">⊞ &nbsp;Open Directory</button>
+        </div>
+
+        <!-- recent entries preview -->
+        <div class="recent-panel glass-panel">
+          <div class="panel-header">
+            <h3>Recent Entries</h3>
+            <span class="badge-pill" id="recentCount">0</span>
+          </div>
+          <div class="recent-list" id="recentList">
+            <div class="empty-state-mini">No contacts yet.</div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── CONTACT DIRECTORY SECTION ─────────────────────────────────── -->
+      <section class="page-section" id="section-directory">
+
+        <div class="section-heading">
+          <h2>Contact Directory</h2>
+          <p class="section-sub">All records — searchable and sortable.</p>
+        </div>
+
+        <!-- search / sort bar -->
+        <div class="controls-bar glass-panel">
+          <div class="search-wrap">
+            <span class="search-icon">⌕</span>
+            <input type="text" id="searchInput" class="search-field" placeholder="Search by name, email, phone…" autocomplete="off" />
+            <button class="clear-search" id="clearSearch" title="Clear">✕</button>
+          </div>
+          <div class="sort-wrap">
+            <label class="sort-label">Sort</label>
+            <select id="sortSelect" class="sort-select">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="name-az">Name A → Z</option>
+              <option value="name-za">Name Z → A</option>
+            </select>
+          </div>
+          <button class="btn-primary btn-sm" id="dirAddBtn">⊕ Add Contact</button>
+        </div>
+
+        <!-- table wrapper -->
+        <div class="table-shell glass-panel">
+          <div class="table-scroll">
+            <table class="contacts-table" id="contactsTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Address</th>
+                  <th>Added</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="contactsBody">
+                <!-- shimmer rows injected by JS while loading -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- empty state -->
+          <div class="empty-state" id="emptyState" style="display:none">
+            <div class="empty-orb"></div>
+            <h3>No contacts found</h3>
+            <p>Your directory is empty, or no results matched your search.</p>
+            <button class="btn-primary" id="emptyAddBtn">⊕ Add your first contact</button>
+          </div>
+        </div>
+
+      </section>
+
+    </div><!-- /content-area -->
+  </main>
+
+  <!-- ═══════════════════════════ MODAL ════════════════════════════════════ -->
+  <div class="modal-overlay" id="contactModal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 id="modalTitle">Add Contact</h3>
+        <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      </div>
+
+      <form class="modal-form" id="contactForm" novalidate>
+        <input type="hidden" id="editContactId" value="" />
+
+        <div class="form-row">
+          <div class="field-group">
+            <label for="fieldFirstName">First Name</label>
+            <input type="text" id="fieldFirstName" placeholder="e.g. Arjun" autocomplete="off" />
+            <span class="field-error" id="err-first_name"></span>
+          </div>
+          <div class="field-group">
+            <label for="fieldLastName">Last Name</label>
+            <input type="text" id="fieldLastName" placeholder="e.g. Sharma" autocomplete="off" />
+            <span class="field-error" id="err-last_name"></span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="fieldEmail">Email Address</label>
+          <input type="email" id="fieldEmail" placeholder="arjun@company.com" autocomplete="off" />
+          <span class="field-error" id="err-email"></span>
+        </div>
+
+        <div class="field-group">
+          <label for="fieldPhone">Phone Number</label>
+          <input type="tel" id="fieldPhone" placeholder="+91 9876543210" autocomplete="off" />
+          <span class="field-error" id="err-phone"></span>
+        </div>
+
+        <div class="field-group">
+          <label for="fieldAddress">Address</label>
+          <input type="text" id="fieldAddress" placeholder="Hyderabad, Telangana, India" autocomplete="off" />
+          <span class="field-error" id="err-address"></span>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="modalCancel">Cancel</button>
+          <button type="submit" class="btn-primary" id="modalSubmit" disabled>Save Contact</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════ DELETE CONFIRM ════════════════════════════ -->
+  <div class="modal-overlay" id="deleteModal" aria-hidden="true">
+    <div class="modal-box modal-box--sm" role="alertdialog">
+      <div class="delete-icon">⚠</div>
+      <h3 class="delete-title">Remove this contact?</h3>
+      <p class="delete-sub" id="deleteContactName">This action is permanent and cannot be reversed.</p>
+      <div class="modal-actions">
+        <button class="btn-ghost" id="deleteCancelBtn">Keep it</button>
+        <button class="btn-danger" id="deleteConfirmBtn">Yes, delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════ TOAST ═════════════════════════════════════ -->
+  <div class="toast-shelf" id="toastShelf" aria-live="polite"></div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
