@@ -9,7 +9,7 @@ app = Flask(
     __name__,
     root_path=os.path.dirname(os.path.abspath(__file__)),
     template_folder="templates",
-    static_folder="public/static",
+    static_folder="static",
 )
 
 # ── Database ──────────────────────────────────────────────────────────────────
