@@ -15,7 +15,6 @@ app = Flask(
 
 # ── Database ──────────────────────────────────────────────────────────────────
 mongo_uri = os.environ.get("MONGODB_URL", "mongodb+srv://abhinayapulagam_db_user:69Gm5TSVTfyadmC3@cluster0.xxyzbss.mongodb.net/?appName=Cluster0")
-print(f"DEBUG: MONGODB_URL = {mongo_uri}", file=sys.stderr)
 client = MongoClient(mongo_uri)
 db = client["connectsphere_pro"]
 contacts_col = db["contacts"]
