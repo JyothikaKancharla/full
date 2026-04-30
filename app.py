@@ -13,7 +13,8 @@ app = Flask(
 )
 
 # ── Database ──────────────────────────────────────────────────────────────────
-client = MongoClient("mongodb+srv://abhinayapulagam_db_user:69Gm5TSVTfyadmC3@cluster0.xxyzbss.mongodb.net/?appName=Cluster0")
+mongo_uri = os.environ.get("MONGODB_URI", "mongodb+srv://abhinayapulagam_db_user:69Gm5TSVTfyadmC3@cluster0.xxyzbss.mongodb.net/?appName=Cluster0")
+client = MongoClient(mongo_uri)
 db = client["connectsphere_pro"]
 contacts_col = db["contacts"]
 
