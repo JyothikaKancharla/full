@@ -5,7 +5,12 @@ import re
 import html
 import os
 
-app = Flask(__name__, root_path=os.path.dirname(os.path.abspath(__file__)))
+app = Flask(
+    __name__,
+    root_path=os.path.dirname(os.path.abspath(__file__)),
+    template_folder="templates",
+    static_folder="public/static",
+)
 
 # ── Database ──────────────────────────────────────────────────────────────────
 client = MongoClient("mongodb+srv://abhinayapulagam_db_user:69Gm5TSVTfyadmC3@cluster0.xxyzbss.mongodb.net/?appName=Cluster0")
