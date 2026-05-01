@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ConnectSphere Pro</title>
+  <title>ProContacts</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -18,8 +18,8 @@
   <!-- ═══════════════════════════ SIDEBAR ══════════════════════════════════ -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-      <span class="brand-icon">⬡</span>
-      <span class="brand-text">ConnectSphere<em>Pro</em></span>
+      <span class="brand-icon">✦</span>
+      <span class="brand-text">ProContacts</span>
     </div>
 
     <nav class="sidebar-nav">
@@ -28,11 +28,11 @@
         <span>Dashboard</span>
       </a>
       <a href="#" class="nav-item" data-section="new-contact">
-        <span class="nav-icon">⊕</span>
+        <span class="nav-icon">+</span>
         <span>New Contact</span>
       </a>
       <a href="#" class="nav-item" data-section="directory">
-        <span class="nav-icon">⊞</span>
+        <span class="nav-icon">☰</span>
         <span>Contact Directory</span>
       </a>
     </nav>
@@ -48,7 +48,7 @@
     <!-- TOP HEADER -->
     <header class="top-bar">
       <div class="topbar-left">
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">&#9776;</button>
         <h1 class="topbar-title">Dashboard</h1>
       </div>
       <div class="topbar-right">
@@ -72,23 +72,23 @@
 
         <div class="stats-grid">
           <div class="stat-card" id="stat-total">
-            <div class="stat-icon si-cyan">⬡</div>
+            <div class="stat-icon si-cyan">◆</div>
             <div class="stat-body">
               <span class="stat-value shimmer-line" id="sv-total">—</span>
-              <span class="stat-label">Total Records</span>
+              <span class="stat-label">Total Contacts</span>
             </div>
             <div class="stat-glow glow-cyan"></div>
           </div>
           <div class="stat-card" id="stat-verified">
-            <div class="stat-icon si-violet">✦</div>
+            <div class="stat-icon si-violet">✓</div>
             <div class="stat-body">
               <span class="stat-value shimmer-line" id="sv-verified">—</span>
-              <span class="stat-label">Verified Emails</span>
+              <span class="stat-label">This Month</span>
             </div>
             <div class="stat-glow glow-violet"></div>
           </div>
           <div class="stat-card" id="stat-today">
-            <div class="stat-icon si-teal">◆</div>
+            <div class="stat-icon si-teal">●</div>
             <div class="stat-body">
               <span class="stat-value shimmer-line" id="sv-today">—</span>
               <span class="stat-label">Today's Entries</span>
@@ -96,7 +96,7 @@
             <div class="stat-glow glow-teal"></div>
           </div>
           <div class="stat-card" id="stat-updated">
-            <div class="stat-icon si-rose">◉</div>
+            <div class="stat-icon si-rose">◷</div>
             <div class="stat-body">
               <span class="stat-value shimmer-line" id="sv-updated" style="font-size:1rem">—</span>
               <span class="stat-label">Last Updated</span>
@@ -107,12 +107,13 @@
 
         <!-- quick action -->
         <div class="quick-action-row">
-          <button class="btn-primary" id="quickAddBtn">⊕ &nbsp;Add New Contact</button>
-          <button class="btn-ghost" id="quickDirBtn">⊞ &nbsp;Open Directory</button>
+          <button class="btn-primary" id="quickAddBtn"><span class="btn-icon">+</span>Add New Contact</button>
+          <button class="btn-ghost" id="quickDirBtn"><span class="btn-icon">▦</span>Open Directory</button>
+<button class="btn-ghost activity-jump" id="recentActivityBtn"><span class="btn-icon">◷</span>Recent Activity</button>
         </div>
 
         <!-- recent entries preview -->
-        <div class="recent-panel glass-panel">
+        <div class="recent-panel glass-panel" id="recentActivity" tabindex="-1">
           <div class="panel-header">
             <h3>Recent Entries</h3>
             <span class="badge-pill" id="recentCount">0</span>
@@ -137,7 +138,7 @@
           <div class="search-wrap">
             <span class="search-icon">⌕</span>
             <input type="text" id="searchInput" class="search-field" placeholder="Search by name, email, phone…" autocomplete="off" />
-            <button class="clear-search" id="clearSearch" title="Clear">✕</button>
+            <button class="clear-search" id="clearSearch" title="Clear">&#10005;</button>
           </div>
           <div class="sort-wrap">
             <label class="sort-label">Sort</label>
@@ -148,7 +149,7 @@
               <option value="name-za">Name Z → A</option>
             </select>
           </div>
-          <button class="btn-primary btn-sm" id="dirAddBtn">⊕ Add Contact</button>
+          <button class="btn-primary btn-sm" id="dirAddBtn"><span class="btn-icon">+</span>Add Contact</button>
         </div>
 
         <!-- table wrapper -->
@@ -177,7 +178,7 @@
             <div class="empty-orb"></div>
             <h3>No contacts found</h3>
             <p>Your directory is empty, or no results matched your search.</p>
-            <button class="btn-primary" id="emptyAddBtn">⊕ Add your first contact</button>
+            <button class="btn-primary" id="emptyAddBtn"><span class="btn-icon">+</span>Add your first contact</button>
           </div>
         </div>
 
@@ -191,7 +192,7 @@
     <div class="modal-box" role="dialog" aria-labelledby="modalTitle">
       <div class="modal-header">
         <h3 id="modalTitle">Add Contact</h3>
-        <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+        <button class="modal-close" id="modalClose" aria-label="Close">&#10005;</button>
       </div>
 
       <form class="modal-form" id="contactForm" novalidate>
@@ -239,7 +240,7 @@
   <!-- ═══════════════════════════ DELETE CONFIRM ════════════════════════════ -->
   <div class="modal-overlay" id="deleteModal" aria-hidden="true">
     <div class="modal-box modal-box--sm" role="alertdialog">
-      <div class="delete-icon">⚠</div>
+      <div class="delete-icon">&#9888;</div>
       <h3 class="delete-title">Remove this contact?</h3>
       <p class="delete-sub" id="deleteContactName">This action is permanent and cannot be reversed.</p>
       <div class="modal-actions">

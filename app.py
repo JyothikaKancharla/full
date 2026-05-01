@@ -14,10 +14,10 @@ app = Flask(
 )
 
 # ── Database ──────────────────────────────────────────────────────────────────
-mongo_uri = os.environ.get("MONGODB_URL", "mongodb+srv://abhinayapulagam_db_user:69Gm5TSVTfyadmC3@cluster0.xxyzbss.mongodb.net/?appName=Cluster0")
+mongo_uri = os.environ.get("MONGODB_URL", "mongodb://localhost:27017/gokul")
 client = MongoClient(mongo_uri)
-db = client["connectsphere_pro"]
-contacts_col = db["contacts"]
+db = client["gokul"]
+contacts_col = db["user"]
 
 # Ensure unique indexes (run once, idempotent)
 try:
@@ -219,6 +219,11 @@ def stats():
 
         today_entries = contacts_col.count_documents({"created_at": {"$gte": today_start}})
 
+        month_start = datetime.now(timezone.utc).replace(
+            day=1, hour=0, minute=0, second=0, microsecond=0
+        ).isoformat()
+        month_entries = contacts_col.count_documents({"created_at": {"$gte": month_start}})
+
         # Verified emails: basic heuristic — has a recognised TLD
         verified = contacts_col.count_documents(
             {"email": {"$regex": r"\.(com|org|net|io|co|edu|gov)$"}}
@@ -229,7 +234,7 @@ def stats():
 
         return jsonify({
             "total": total,
-            "verified_emails": verified,
+            "verified_emails": month_entries,
             "today_entries": today_entries,
             "last_updated": last_updated,
         })
