@@ -224,7 +224,7 @@ def stats():
         ).isoformat()
         month_entries = contacts_col.count_documents({"created_at": {"$gte": month_start}})
 
-        # Verified emails: basic heuristic — has a recognised TLD
+        # Verified emails: count emails with recognised TLD
         verified = contacts_col.count_documents(
             {"email": {"$regex": r"\.(com|org|net|io|co|edu|gov)$"}}
         )
@@ -234,7 +234,7 @@ def stats():
 
         return jsonify({
             "total": total,
-            "verified_emails": month_entries,
+            "verified_emails": verified,
             "today_entries": today_entries,
             "last_updated": last_updated,
         })

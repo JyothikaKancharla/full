@@ -692,7 +692,7 @@ body {
   position: relative;
   overflow: hidden;
   scroll-margin-top: 88px;
-  display: none;
+  display: block;
 }
 
 .recent-panel.collapsed {

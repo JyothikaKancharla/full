@@ -558,37 +558,11 @@ document.addEventListener("click", (e) => {
 });
 
 /* -- Quick action buttons ------------------------------------------- */
-$("quickAddBtn").addEventListener("click", () => openContactModal());
-$("quickDirBtn").addEventListener("click", () => switchSection("directory"));
 $("dirAddBtn").addEventListener("click",   () => openContactModal());
 $("emptyAddBtn").addEventListener("click", () => openContactModal());
 
-/* -- Recent Activity toggle ------------------------------------------ */
-const recentPanel = $("recentActivity");
-const recentActivityBtn = $("recentActivityBtn");
-
-if (recentActivityBtn && recentPanel) {
-  recentActivityBtn.addEventListener("click", function() {
-    if (recentPanel.classList.contains("collapsed")) {
-      // Expand the panel
-      recentPanel.classList.remove("collapsed");
-      recentPanel.classList.add("expanded");
-      // Update button text
-      this.innerHTML = '<span class="btn-icon">▼</span>Hide Recent';
-    } else {
-      // Collapse the panel
-      recentPanel.classList.add("collapsing");
-      recentPanel.classList.remove("expanded");
-      // Update button text
-      this.innerHTML = '<span class="btn-icon">◷</span>Recent Activity';
-      // Remove collapsing class after animation completes
-      setTimeout(() => {
-        recentPanel.classList.remove("collapsing");
-        recentPanel.classList.add("collapsed");
-      }, 300);
-    }
-  });
-}
+/* -- Recent Activity (now always visible) ----------------------------- */
+// Recent Activity is now displayed directly, no toggle functionality needed
 
 /* -- Modal close triggers ------------------------------------------ */
 DOM.modalClose.addEventListener("click",  closeContactModal);
@@ -649,11 +623,6 @@ function escHtml(str) {
 document.addEventListener("DOMContentLoaded", () => {
   tickClock();
   setInterval(tickClock, 1000);
-
-  // Initialize recent panel as collapsed (hidden)
-  if (recentPanel) {
-    recentPanel.classList.add("collapsed");
-  }
 
   attachFormListeners();
   loadContacts();
