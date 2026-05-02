@@ -45,7 +45,6 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
-  animation: auroraShift 18s ease-in-out infinite alternate;
 }
 
 @keyframes auroraShift {
@@ -60,6 +59,10 @@ body {
   }
 }
 
+/* Animations disabled for performance - preserved for reference
+@keyframes auroraShift { 0% { background-position: 0% 0%, 100% 6%, 48% 100%, 0 0; } 50% { background-position: 10% 8%, 88% 14%, 56% 88%, 0 0; } 100% { background-position: 4% 16%, 94% 2%, 42% 92%, 0 0; } }
+*/
+
 /* ── Ambient blobs ──────────────────────────────────────────────── */
 .bg-blob {
   position: fixed;
@@ -68,16 +71,10 @@ body {
   pointer-events: none;
   z-index: 0;
   opacity: 0.28;
-  animation: blobDrift 18s ease-in-out infinite alternate;
 }
-.blob-one   { width:520px; height:520px; background:#8B5CF6; top:-160px; right:5%;  animation-delay: 0s; }
-.blob-two   { width:400px; height:400px; background:#C084FC; bottom:5%;  left:-120px; animation-delay:-6s; }
-.blob-three { width:320px; height:320px; background:#F0ABFC; top:40%;    right:15%;   animation-delay:-11s; opacity:.18; }
-
-@keyframes blobDrift {
-  0%   { transform: translate(0,0) scale(1); }
-  100% { transform: translate(30px, 20px) scale(1.07); }
-}
+.blob-one   { width:520px; height:520px; background:#8B5CF6; top:-160px; right:5%; }
+.blob-two   { width:400px; height:400px; background:#C084FC; bottom:5%;  left:-120px; }
+.blob-three { width:320px; height:320px; background:#F0ABFC; top:40%;    right:15%;  opacity:.18; }
 
 /* ── Sidebar ─────────────────────────────────────────────────────── */
 .sidebar {
@@ -91,12 +88,6 @@ body {
   flex-direction: column;
   z-index: 200;
   transition: transform var(--transition);
-  animation: sidebarEnter 0.58s var(--ease-out) both;
-}
-
-@keyframes sidebarEnter {
-  from { opacity: 0; transform: translateX(-28px); }
-  to { opacity: 1; transform: translateX(0); }
 }
 
 .sidebar-brand {
@@ -111,7 +102,6 @@ body {
   font-size: 1.5rem;
   color: var(--cyan);
   text-shadow: 0 0 12px var(--cyan);
-  animation: softGlow 2.8s ease-in-out infinite;
   line-height: 1;
 }
 
