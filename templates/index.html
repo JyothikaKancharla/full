@@ -27,18 +27,17 @@
         <span class="nav-icon">▦</span>
         <span>Dashboard</span>
       </a>
-      <a href="#" class="nav-item" data-section="new-contact">
+      <a href="#" class="nav-item" data-section="dashboard" onclick="document.getElementById('dirAddBtn').click(); return false;">
         <span class="nav-icon">+</span>
         <span>New Contact</span>
       </a>
       <a href="#" class="nav-item" data-section="directory">
-        <span class="nav-icon">☰</span>
+        <span class="nav-icon">📋</span>
         <span>Contact Directory</span>
       </a>
     </nav>
 
     <div class="sidebar-footer">
-      <span class="sidebar-version">v2.4.1</span>
     </div>
   </aside>
 
@@ -48,7 +47,7 @@
     <!-- TOP HEADER -->
     <header class="top-bar">
       <div class="topbar-left">
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">&#9776;</button>
+        
         <h1 class="topbar-title">Dashboard</h1>
       </div>
       <div class="topbar-right">
@@ -126,21 +125,12 @@
           <p class="section-sub">All records — searchable and sortable.</p>
         </div>
 
-        <!-- search / sort bar -->
+        <!-- search bar only -->
         <div class="controls-bar glass-panel">
-          <div class="search-wrap">
+          <div class="search-wrap" style="flex:1">
             <span class="search-icon">⌕</span>
             <input type="text" id="searchInput" class="search-field" placeholder="Search by name, email, phone…" autocomplete="off" />
             <button class="clear-search" id="clearSearch" title="Clear">&#10005;</button>
-          </div>
-          <div class="sort-wrap">
-            <label class="sort-label">Sort</label>
-            <select id="sortSelect" class="sort-select">
-              <option value="newest">Newest first</option>
-              <option value="oldest">Oldest first</option>
-              <option value="name-az">Name A → Z</option>
-              <option value="name-za">Name Z → A</option>
-            </select>
           </div>
           <button class="btn-primary btn-sm" id="dirAddBtn"><span class="btn-icon">+</span>Add Contact</button>
         </div>
